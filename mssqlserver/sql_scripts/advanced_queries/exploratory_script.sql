@@ -1,0 +1,3 @@
+SELECT
+    (SELECT COUNT(*) FROM TABELA_DE_CLIENTES) AS total_clients,
+    (SELECT COUNT(*) FROM TABELA_DE_PRODUTOS) AS total_products;
