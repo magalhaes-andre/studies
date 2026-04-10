@@ -1,3 +1,27 @@
+"""Feature scaling refresher (with a simple train/test workflow).
+
+Feature scaling transforms numeric input features onto comparable ranges so that a model
+(or a distance/gradient-based algorithm) is not unduly influenced by units and magnitude.
+This script generates a toy credit-style dataset, encodes a categorical feature, splits
+into train/test sets, and applies standardization.
+
+Key ideas used here:
+- Label encoding: converts the categorical 'Historical Credit' label into integers so it
+  can be used as a numeric feature (note: for non-ordinal categories, one-hot encoding is
+  often a better default).
+- StandardScaler (z-score): transforms each feature to (x - mean) / std so features have
+  approximately zero mean and unit variance.
+- Fit on train, transform on both: scaler.fit(x_train) learns mean/std from training data
+  only; applying those parameters to x_test avoids leaking information from the test set.
+
+When scaling matters most:
+- k-NN, k-means, SVM (RBF), PCA, neural nets, and many regularized linear models.
+
+When it matters less:
+- Tree-based models (decision trees, random forests, gradient boosting) are usually
+  insensitive to monotonic feature scaling.
+"""
+
 import pandas as pd
 import numpy as np
 import sklearn.model_selection as ms

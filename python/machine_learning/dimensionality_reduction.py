@@ -1,3 +1,28 @@
+"""Dimensionality reduction (PCA) refresher.
+
+Dimensionality reduction compresses a dataset with many features into a smaller set of
+new features while preserving as much information as possible. This script demonstrates
+Principal Component Analysis (PCA) on the Iris dataset by reducing 4 measured flower
+features down to 2 principal components.
+
+Key ideas used here:
+    - Standardize features first: PCA is variance-based, so scaling to zero mean / unit
+    variance prevents large-scale features from dominating the components.
+    - Principal components are new, orthogonal axes: each component is a linear combination
+    of the original features, chosen to capture maximum remaining variance.
+    - Explained variance ratio: pca.explained_variance_ratio_ tells how much of the total
+    variance each component captures; the sum indicates how much information is retained
+    after reduction.
+
+Typical uses:
+    - Visualization (2D/3D projections), noise reduction, faster downstream models, and
+    mitigating multicollinearity.
+
+Caveat:
+    - PCA components are less interpretable than original features, and PCA captures linear
+    structure (nonlinear structure may need other methods).
+"""
+
 from IPython.display import display
 from sklearn import datasets
 import pandas as pd
