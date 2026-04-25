@@ -1,0 +1,13 @@
+pandas
+numpy
+scikit-learn
+matplotlib
+seaborn
+statsmodels
+openpyxl
+ipython
+opencv-python
+opencv-contrib-python
+pytesseract
+paddlepaddle
+paddleocr
