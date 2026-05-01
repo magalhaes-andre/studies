@@ -11,3 +11,7 @@ opencv-contrib-python
 pytesseract
 paddlepaddle
 paddleocr
+tensorflow
+keras
+tensorflow-datasets
+tabulate
