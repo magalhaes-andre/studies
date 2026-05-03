@@ -1,23 +1,29 @@
-# Minimal Lung Cancer CT MVP
+# Lung Cancer Detection Notebook
 
-This project implements a narrow research MVP for the `Lung-PET-CT-Dx` archive:
+This project implements a small teaching project for the `Lung-PET-CT-Dx` archive:
 
 - input: single CT DICOM slices referenced by XML annotations
 - supervision: tumor bounding boxes from Pascal VOC XML files
 - task: binary classification of `tumor crop` vs `background crop`
 - output: a lesion probability for a crop, not a diagnosis
 
-This is intentionally small so you can get an end-to-end pipeline working before attempting full detection, 3D models, or clinical claims.
+This version is intentionally simple so it can work as an introductory CNN assignment.
 
-## What This Starter Does
+## What This Notebook Does
 
 - parses Pascal VOC XML annotations
 - resolves the referenced DICOM slice under an image root
 - converts CT pixels to HU and applies windowing
 - samples positive crops from tumor boxes
 - samples random negative crops away from the tumor box
-- trains a `ResNet18` binary classifier on 2D crops
-- saves patient-level train/val/test splits and the best checkpoint
+- trains a small `TensorFlow/Keras` CNN on 2D crops
+- saves patient-level train/val/test splits and the best model
+
+## Main File
+
+- Open `lung_cancer_detection_workflow.ipynb`
+- Run the cells from top to bottom
+- Edit the dataset paths in the path configuration cell before training
 
 ## Recommended Dataset Layout
 
@@ -46,28 +52,21 @@ The XML parser first tries the `<path>` field from each XML file. If that path i
 pip install -r requirements.txt
 ```
 
-## Train
+## How To Use
 
-```bash
-python -m src.train   --image-root "C:/data/lung_pet_ct_dx/images"   --annotations-dir "C:/data/lung_pet_ct_dx/annotations"   --output-dir "C:/data/lung_pet_ct_dx_runs/mvp"   --epochs 10   --batch-size 16
-```
+- Set `IMAGE_ROOT`, `ANNOTATIONS_DIR`, and `OUTPUT_DIR` in the notebook
+- Run the training cell to create `best.keras`, `best_info.json`, and `metrics.json`
+- Run the inference example cell to test one DICOM crop
 
-Useful options:
+Useful notebook settings:
 
-- `--img-size 224`
-- `--negatives-per-positive 1`
-- `--window-center 40`
-- `--window-width 350`
-- `--padding 0.25`
-- `--no-pretrained`
-
-## Inference
-
-Run inference on a known box from one DICOM slice:
-
-```bash
-python -m src.infer   --checkpoint "C:/data/lung_pet_ct_dx_runs/mvp/best.pt"   --dicom-path "C:/data/lung_pet_ct_dx/images/example.dcm"   --xmin 120 --ymin 140 --xmax 220 --ymax 240
-```
+- `IMAGE_SIZE = 128`
+- `NEGATIVES_PER_POSITIVE = 1`
+- `WINDOW_CENTER = 40.0`
+- `WINDOW_WIDTH = 350.0`
+- `PADDING = 0.25`
+- `EPOCHS = 10`
+- `BATCH_SIZE = 16`
 
 ## Limitations
 
